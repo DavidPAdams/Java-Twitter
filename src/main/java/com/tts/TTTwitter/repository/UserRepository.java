@@ -1,6 +1,7 @@
 package com.tts.TTTwitter.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -12,5 +13,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
   User findByUsernameContainsIgnoreCase(String username);
   List<User> findAllByFirstNameContainsIgnoreCase(String firstName);
   List<User> findAllByLastNameContainsIgnoreCase(String lastName);
-//  User findById(Long id)
+  Optional<User> findById(Long id);
 }

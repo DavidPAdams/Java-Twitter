@@ -1,5 +1,6 @@
 package com.tts.TTTwitter.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class UserController {
    }
    
    private void SetTweetCounts(List<User> users, Model model) {
-     HashMap<String, Integer> tweetCounts = new HashMap();
+     HashMap<String, Integer> tweetCounts = new HashMap<String, Integer>();
      for (User user : users) {
        List<Tweet> tweets = tweetService.findAllByUser(user);
        tweetCounts.put(user.getUsername(), tweets.size());

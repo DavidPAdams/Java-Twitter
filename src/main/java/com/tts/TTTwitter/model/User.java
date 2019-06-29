@@ -1,20 +1,25 @@
 package com.tts.TTTwitter.model;
 
 import java.sql.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class User {
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
-  @Column(name="user_id")
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "user_id")
   private Long id;
   private String email;
   private String username;
@@ -22,12 +27,12 @@ public class User {
   private String firstName;
   private String lastName;
   private Integer active;
-  
+
   @CreationTimestamp
   private Date createdAt;
-  
+
   public User() {};
-  
+
   public User(String email, String username, String password, String firstName, String lastName, Integer active) {
     this.email = email;
     this.username = username;
@@ -94,5 +99,9 @@ public class User {
     return "User [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password + ", firstName="
         + firstName + ", lastName=" + lastName + ", active=" + active + "]";
   }
-  
+
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private Set<Role> roles;
+
 }

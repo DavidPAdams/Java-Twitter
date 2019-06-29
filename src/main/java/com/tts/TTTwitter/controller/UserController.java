@@ -31,4 +31,21 @@ public class UserController {
      return "user";
    }
    
+   @GetMapping(value = "/users")
+   public String getUsers(Model model) {
+     List<User> users = userService.findAll();
+     model.addAttribute("users", users);
+     SetTweetCounts(users, model);
+     return "users";
+   }
+   
+   private void SetTweetCounts(List<User> users, Model model) {
+     HashMap<String, Integer> tweetCounts = new HashMap();
+     for (User user : users) {
+       List<Tweet> tweets = tweetService.findAllByUser(user);
+       tweetCounts.put(user.getUsername(), tweets.size());
+     }
+     model.addAttribute("tweetCounts", tweetCounts);
+   }
+   
 }

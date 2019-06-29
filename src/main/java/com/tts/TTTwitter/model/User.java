@@ -1,10 +1,14 @@
 package com.tts.TTTwitter.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class User {
@@ -18,6 +22,9 @@ public class User {
   private String firstName;
   private String lastName;
   private Integer active;
+  
+  @CreationTimestamp
+  private Date createdAt;
   
   public User() {};
   

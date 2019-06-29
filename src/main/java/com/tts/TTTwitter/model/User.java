@@ -1,6 +1,7 @@
 package com.tts.TTTwitter.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -112,12 +113,6 @@ public class User {
     return id;
   }
 
-  @Override
-  public String toString() {
-    return "User [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password + ", firstName="
-        + firstName + ", lastName=" + lastName + ", active=" + active + "]";
-  }
-
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles;
@@ -129,5 +124,26 @@ public class User {
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
   }
+  
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "user_follower", joinColumns = @JoinColumn(name = "user_id"), 
+      inverseJoinColumns = @JoinColumn(name = "follower_id"))
+  private List<User> followers;
+
+  public List<User> getFollowers() {
+    return followers;
+  }
+
+  public void setFollowers(List<User> followers) {
+    this.followers = followers;
+  }
+
+  @Override
+  public String toString() {
+    return "User [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password + ", firstName="
+        + firstName + ", lastName=" + lastName + ", active=" + active + ", createdAt=" + createdAt + ", roles=" + roles
+        + ", followers=" + followers + "]";
+  }
+  
 
 }

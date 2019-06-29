@@ -3,10 +3,11 @@
 
 <head>
   <title>Log in</title>
-  <div th:replace="fragments/headLinks :: headLinks"></div>
+  <div th:replace="fragments/headLinks"></div>
 </head>
 <body>
   <div class="container">
+    <div th:replace="fragments/navbar"></div>
     <h2>Welcome!</h2> 
     <form th:action="@{/login}" method="post"><br/>
       <input type="text" id="username" name="username" th:placeholder="Username" class="form-control"/> <br/>
@@ -17,6 +18,6 @@
       <button class="btn btn-md btn-success btn-block" name="Submit" value="Login" type="Submit">Log in</button> 
     </form>      
   </div>
-  <div th:replace="fragments/scripts :: scrips"></div>
+  <div th:replace="fragments/scripts"></div>
 </body>
 </html>

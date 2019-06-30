@@ -69,9 +69,27 @@ public class TweetService {
   
   private List<Tweet> formatTweets(List<Tweet> tweets) {
     addTagLinks(tweets);
+    shortenLinks(tweets);
     return tweets;
   }
   
+  private void shortenLinks(List<Tweet> tweets) {
+    Pattern pattern = Pattern.compile("https?[^ ]+");
+    for(Tweet tweet: tweets) {
+      String message = tweet.getMessage();
+      Matcher matcher = pattern.matcher(message);
+      while(matcher.find()) {
+        String link = matcher.group();
+        String shortenedLink = link;
+        if (link.length() > 23) {
+          shortenedLink = link.substring(0,20) + "...";
+        }
+        message = message.replace(link, "<a class=\"tag\" href=\"" + link + "\" target=\"_blank\">" + shortenedLink + "</a>");
+      }
+      tweet.setMessage(message);
+    }
+  }
+
   private void addTagLinks(List<Tweet> tweets) {
     Pattern pattern = Pattern.compile("#\\w+");
     for(Tweet tweet: tweets) {

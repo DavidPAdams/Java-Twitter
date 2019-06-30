@@ -17,9 +17,25 @@
         <h5 class="mb-1" style="color: #00aced"><i class="fab fa-twitter"></i> @<span th:text="${user.username}"></span></h5> 
         <h5 class="mb-1"><span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></h5>
       </div>
-      <div class="col col-sm-2 col-sm-offset-4 text-right">
-        <h5 class="mb-1"><span th:text="${tweetCounts.get(user.username)}"></span> tweets</h5>
+      <div class="col col-sm-2 col-sm-offset-4">
+        <h5 class="mb-1">
+          <span th:text="${tweetCounts.get(user.username)}"></span>
+          tweets
+        </h5>
       </div>
+      <form th:action="@{/follow/} + ${user.username}"
+        th:if="${followingStatus.containsKey(user.username) && !followingStatus.get(user.username)}"
+        method="post">
+        <button style="float: right" type="Submit"
+          class="btn btn-md btn-success">Follow</button>
+      </form>
+      <form th:action="@{/unfollow/} + ${user.username}"
+        th:if="${followingStatus.containsKey(user.username) && followingStatus.get(user.username)}"
+        method="post">
+        <button style="float: right" type="Submit"
+          class="btn btn-md btn-primary unfollow_btn">Following</button>
+      </form>
+    </div>
     </div>
     </a>
   <div th:replace="fragments/scripts"></div>

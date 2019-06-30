@@ -137,6 +137,17 @@ public class User {
   public void setFollowers(List<User> followers) {
     this.followers = followers;
   }
+  
+  @ManyToMany(mappedBy="followers")
+  private List<User> following;
+
+  public List<User> getFollowing() {
+    return following;
+  }
+
+  public void setFollowing(List<User> following) {
+    this.following = following;
+  }
 
   @Override
   public String toString() {

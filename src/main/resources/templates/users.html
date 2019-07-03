@@ -9,6 +9,15 @@
   <div class="container">
     <div th:replace="fragments/navbar"></div>
     <h2>Users</h2>
+    <ul class="nav nav-tabs">
+      <li role="presentation" th:classappend="${filter == 'all' ? 'active' : '' }">
+        <a href="/users">All</a>
+      </li>
+      <li role="presentation" th:classappend="${filter == 'following' ? 'active' : '' }">
+        <a href="/users?filter=following">Following</a>
+      </li>
+    </ul>
+    <br />
     <div class="list-group" th:each="user:${users}"></div>
   </div>
   <a th:href="@{/users/} + ${user.username}" class="list-group-item list-group-item-action">
@@ -36,8 +45,9 @@
           class="btn btn-md btn-primary unfollow_btn">Following</button>
       </form>
     </div>
-    </div>
-    </a>
+  </a>
+  <div th:if="${#lists.isEmpty(users) and filter == 'followers'}"><h3>You don't have any followers</h3></div>
+  <div th:if="${#lists.isEmpty(users) and filter == 'following'}"><h3>You're not following anyone</h3></div>
   <div th:replace="fragments/scripts"></div>
 </body>
 </html>
